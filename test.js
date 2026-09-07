@@ -12,7 +12,8 @@ const path = require('path');
 global.window = {};
 require(path.join(__dirname, 'data.js'));
 
-const source = fs.readFileSync(path.join(__dirname, 'app.js'), 'utf8');
+const source = fs.readFileSync(path.join(__dirname, 'app.js'), 'utf8')
+  .split('   PART 2 -- FORMATTING')[0];
 // Node 24 keeps eval'd declarations inside the eval's own scope, so the
 // engine's functions are re-exported explicitly rather than relying on leakage.
 // new Function runs the engine in its own scope and hands back the symbols.

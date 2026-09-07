@@ -1,0 +1,269 @@
+/* Colour carries meaning here, not decoration. Saturation tables are about
+   two phases, so columns are coded by phase: liquid cool, vapour warm, the
+   evaporation difference neutral. */
+
+:root {
+  --ink:        #101d2b;
+  --ink-soft:   #4a5c6e;
+  --ink-faint:  #8697a6;
+  --paper:      #fcfcfa;
+  --rule:       #dce1e7;
+  --rule-hard:  #a9b6c2;
+
+  --liquid:     #1f6fb2;
+  --vapor:      #b4661a;
+  --evap:       #6b7a88;
+
+  --mark:       #fdf6c9;
+  --mark-rule:  #d7a51a;
+
+  --error:      #a4232b;
+  --error-bg:   #fdf3f3;
+
+  --mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+  --sans: "IBM Plex Sans", system-ui, "Segoe UI", sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.55;
+}
+
+:focus-visible { outline: 2px solid var(--liquid); outline-offset: 2px; }
+
+.masthead {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1.5rem 2.5rem;
+  padding: 1.75rem 1.5rem 1.25rem;
+  border-bottom: 1px solid var(--rule-hard);
+  max-width: 1180px;
+  margin: 0 auto;
+}
+
+.masthead-title h1 {
+  margin: 0;
+  font-size: 1.375rem;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+}
+
+.masthead-title p { margin: 0.1rem 0 0; color: var(--ink-faint); font-size: 0.875rem; }
+
+.controls { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 1rem; }
+.field { display: flex; flex-direction: column; gap: 0.3rem; }
+.field-label { font-size: 0.8125rem; color: var(--ink-soft); }
+
+select, input[type="text"] {
+  font-family: var(--sans);
+  font-size: 0.9375rem;
+  color: var(--ink);
+  background: #fff;
+  border: 1px solid var(--rule-hard);
+  border-radius: 3px;
+  padding: 0.45rem 0.6rem;
+}
+
+select { min-width: 17rem; }
+
+.input-wrap { position: relative; display: inline-flex; }
+
+.input-wrap input {
+  font-family: var(--mono);
+  font-size: 1rem;
+  width: 9rem;
+  padding-right: 3rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.input-unit {
+  position: absolute;
+  right: 0.6rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: var(--mono);
+  font-size: 0.875rem;
+  color: var(--ink-faint);
+  pointer-events: none;
+}
+
+main { max-width: 1180px; margin: 0 auto; padding: 1.5rem 1.5rem 5rem; }
+
+.hint { margin: 0.5rem 0 0; color: var(--ink-faint); font-size: 0.9375rem; }
+
+.error {
+  margin: 1rem 0 0;
+  padding: 0.75rem 0.9rem;
+  border-left: 3px solid var(--error);
+  background: var(--error-bg);
+  color: var(--error);
+  font-size: 0.9375rem;
+}
+
+.readout { margin-top: 1.5rem; }
+
+.readout-head {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+  padding-bottom: 0.6rem;
+  border-bottom: 1px solid var(--rule);
+}
+
+.readout-head > span:first-child {
+  font-family: var(--mono);
+  font-size: 1.0625rem;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+}
+
+.readout-note { color: var(--ink-faint); font-size: 0.8125rem; }
+
+.readout-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(9.5rem, 1fr));
+  gap: 0.9rem 1.5rem;
+  margin: 1rem 0 0;
+}
+
+.readout-grid > div { min-width: 0; }
+
+.readout-grid dt {
+  font-family: var(--mono);
+  font-size: 0.8125rem;
+  color: var(--ink-soft);
+  margin-bottom: 0.15rem;
+}
+
+.readout-grid dd {
+  margin: 0;
+  font-family: var(--mono);
+  font-size: 1.0625rem;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.readout-grid dd .unit {
+  font-size: 0.75rem;
+  color: var(--ink-faint);
+  margin-left: 0.2rem;
+}
+
+.phase-liquid { color: var(--liquid); }
+.phase-vapor  { color: var(--vapor); }
+.phase-evap   { color: var(--evap); }
+.phase-index  { color: var(--ink); }
+
+.table-wrap {
+  margin-top: 2.25rem;
+  overflow-x: auto;
+  border-top: 1px solid var(--rule-hard);
+  border-bottom: 1px solid var(--rule-hard);
+}
+
+table {
+  border-collapse: collapse;
+  font-family: var(--mono);
+  font-size: 0.8125rem;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  min-width: 100%;
+}
+
+thead th {
+  position: sticky;
+  top: 0;
+  background: var(--paper);
+  text-align: right;
+  font-weight: 500;
+  padding: 0.6rem 0.7rem 0.5rem;
+  border-bottom: 1px solid var(--rule-hard);
+}
+
+thead th .th-unit {
+  display: block;
+  font-size: 0.6875rem;
+  color: var(--ink-faint);
+  font-weight: 400;
+}
+
+tbody td {
+  text-align: right;
+  padding: 0.3rem 0.7rem;
+  border-bottom: 1px solid var(--rule);
+  color: var(--ink-soft);
+}
+
+tbody td:first-child { color: var(--ink); font-weight: 500; }
+
+tr.source td { color: var(--ink); background: #f2f5f8; }
+tr.source--upper td { border-bottom-color: var(--rule-hard); }
+tr.source--lower td { border-top: 1px solid var(--rule-hard); }
+
+tr.result td {
+  background: var(--mark);
+  color: var(--ink);
+  font-weight: 500;
+  border-bottom-color: var(--mark-rule);
+}
+
+tr.result td:first-child { box-shadow: inset 3px 0 0 var(--mark-rule); }
+
+tr.result { animation: insert 240ms cubic-bezier(0.2, 0, 0.15, 1); }
+
+@keyframes insert {
+  from { opacity: 0; transform: translateY(-4px); }
+  to   { opacity: 1; transform: none; }
+}
+
+@media (prefers-reduced-motion: reduce) { tr.result { animation: none; } }
+
+.working { margin-top: 2.75rem; }
+.working h2 { font-size: 0.9375rem; font-weight: 600; margin: 0 0 0.5rem; }
+
+.working-intro {
+  margin: 0 0 1rem;
+  color: var(--ink-soft);
+  font-size: 0.9375rem;
+  max-width: 62ch;
+}
+
+.working-steps { display: grid; gap: 0.55rem; }
+
+.step {
+  font-family: var(--mono);
+  font-size: 0.8125rem;
+  font-variant-numeric: tabular-nums;
+  color: var(--ink-soft);
+  overflow-x: auto;
+  padding-bottom: 0.15rem;
+}
+
+.step b { font-weight: 500; }
+.step .out { color: var(--ink); font-weight: 600; }
+
+sub {
+  font-size: 0.72em;
+  line-height: 0;
+  vertical-align: baseline;
+  position: relative;
+  bottom: -0.22em;
+}
+
+@media (max-width: 640px) {
+  .masthead { padding: 1.25rem 1rem 1rem; }
+  main { padding: 1.25rem 1rem 4rem; }
+  .controls { width: 100%; }
+  select { min-width: 0; width: 100%; }
+  .field-value, .input-wrap, .input-wrap input { width: 100%; }
+}

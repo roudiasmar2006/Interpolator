@@ -1,1 +1,67 @@
-<h1>Steam tables</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Steam Tables — interpolating property calculator</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="masthead">
+  <div class="masthead-title">
+    <h1>Steam tables</h1>
+    <p>Interpolating property calculator</p>
+  </div>
+
+  <div class="controls">
+    <label class="field">
+      <span class="field-label">Substance table</span>
+      <select id="table-select"></select>
+    </label>
+
+    <label class="field field-value">
+      <span class="field-label" id="input-label">Temperature</span>
+      <span class="input-wrap">
+        <input id="value-input" type="text" inputmode="decimal" autocomplete="off"
+               spellcheck="false" placeholder="36.2">
+        <span class="input-unit" id="input-unit">°C</span>
+      </span>
+    </label>
+  </div>
+</header>
+
+<main>
+  <p class="hint" id="hint">Enter a value to interpolate between the table rows.</p>
+
+  <div class="error" id="error" hidden></div>
+
+  <section class="readout" id="readout" hidden>
+    <div class="readout-head">
+      <span id="readout-state"></span>
+      <span class="readout-note" id="readout-note"></span>
+    </div>
+    <dl class="readout-grid" id="readout-grid"></dl>
+  </section>
+
+  <section class="table-wrap" id="table-wrap" hidden>
+    <table id="table">
+      <thead id="thead"></thead>
+      <tbody id="tbody"></tbody>
+    </table>
+  </section>
+
+  <section class="working" id="working" hidden>
+    <h2>Working</h2>
+    <p class="working-intro" id="working-intro"></p>
+    <div class="working-steps" id="working-steps"></div>
+  </section>
+</main>
+
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
