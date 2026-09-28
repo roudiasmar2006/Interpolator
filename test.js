@@ -13,7 +13,7 @@ global.window = {};
 require(path.join(__dirname, 'data.js'));
 
 const source = fs.readFileSync(path.join(__dirname, 'app.js'), 'utf8')
-  .split('   PART 2 -- FORMATTING')[0];
+  .split(/\/\* =+\s*\n\s*PART 2 -- FORMATTING/)[0];
 // Node 24 keeps eval'd declarations inside the eval's own scope, so the
 // engine's functions are re-exported explicitly rather than relying on leakage.
 // new Function runs the engine in its own scope and hands back the symbols.
@@ -102,6 +102,12 @@ near('u_f at the triple point is the zero reference',
      interpolate(water, 0.01).values.u_f, 0, 0.01);
 near('u_f at 40 C', interpolate(water, 40).values.u_f, 167.53, 0.05);
 near('v_g at 35 C', interpolate(water, 35).values.v_g, 25.2148, 0.02);
+
+const r134a = TABLES.find(t => t.id === 'r134a_sat_temp');
+near('R-134a uses the -40 C zero reference for h',
+     interpolate(r134a, -40).values.h_f, 0, 0.01);
+near('R-134a uses the -40 C zero reference for s',
+     interpolate(r134a, -40).values.s_f, 0, 0.0001);
 
 // ----------------------------------------------------------------- quality
 
