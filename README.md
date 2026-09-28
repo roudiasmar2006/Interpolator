@@ -3,7 +3,7 @@
 A thermodynamic property calculator. Pick a substance, enter a temperature, and
 it finds the surrounding table rows, interpolates, and shows the working.
 
-**Live:** https://YOURNAME.github.io/interpolator/
+**Live:** https://roudiasmar2006.github.io/interpolator/
 
 Built for my Thermodynamics course, where every problem starts with the same
 tedious step: find two rows in a printed table, copy out eight numbers, apply
